@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Random Image & Video</title>
+  <style>
+    .support-button {
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      z-index: 999;
+    }
+
+    .support-button a {
+      background: transparent;
+      color: #ffffffcc;
+      padding: 4px 6px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 11px;
+      opacity: 0.5;
+      transition: all 0.3s ease;
+    }
+
+    .support-button a:hover {
+      opacity: 1;
+      text-decoration: underline;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(135deg, #1b1f3b, #283e6a, #384e8d);
+      background-size: 300% 300%;
+      animation: shineBackground 18s ease infinite;
+      color: #ffffff;
+      padding: 40px 20px;
+      box-sizing: border-box;
+    }
+
+    @keyframes shineBackground {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .image-wrapper {
+      display: inline-block;
+      max-width: 90%;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      border-radius: 12px;
+      overflow: hidden;
+      background-color: rgba(255, 255, 255, 0.04);
+    }
+
+    img, video {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 12px;
+    }
+
+    .quote {
+      margin-top: 25px;
+      font-size: 1.4em;
+      font-weight: 600;
+      color: #e0e6f0;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+    }
+
+    button {
+      margin-top: 25px;
+      padding: 12px 24px;
+      font-size: 1em;
+      background: linear-gradient(to right, #0057b8, #0096ff);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(to right, #003e91, #0074d9);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+    }
+
+    .whatsapp-bottom {
+      margin-top: 30px;
+    }
+
+    .whatsapp-bottom a {
+      display: inline-block;
+      background: linear-gradient(to right, #0057b8, #0096ff);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 14px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+
+    .whatsapp-bottom a:hover {
+      background: linear-gradient(to right, #003e91, #0074d9);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 14px rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body>
+  <div class="support-button">
+    <a href="support.html" target="_blank">💬 Support</a>
+  </div>
+
+  <div>
+    <div class="image-wrapper">
+      <img id="randomImage" src="" alt="Random Image" style="display: none;">
+      <video id="randomVideo" controls style="display: none;">
+        <source id="videoSource" src="" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <div class="quote" id="quoteText">మీరు ఇమేజ్ ని లాంగ్ ప్రెస్ చేయండి డౌన్లోడ్ క్లిక్ చేయండి</div>
+    <button onclick="showRandom()">Show Another</button>
+  </div>
+
+  <div class="whatsapp-bottom">
+    <a href="https://whatsapp.com/channel/0029VbAw5ZzLCoWw5rh8Jm0J" target="_blank">
+      ✅ Join Our WhatsApp Channel
+    </a>
+  </div>
+
+  <script>
+    const media = [
+      "https://i.ibb.co/pv6XpYsn/IMG-20250805-075213.jpg",
+      "https://i.ibb.co/DPX6nBMz/IMG-20250805-073007.jpg",
+      "halal.mp4"  // ✅ Your video file
+    ];
+
+    function showRandom() {
+      const randomIndex = Math.floor(Math.random() * media.length);
+      const selected = media[randomIndex];
+
+      const img = document.getElementById("randomImage");
+      const video = document.getElementById("randomVideo");
+      const videoSource = document.getElementById("videoSource");
+
+      if (selected.endsWith(".mp4")) {
+        img.style.display = "none";
+        video.style.display = "block";
+        videoSource.src = selected;
+        video.load();
+      } else {
+        video.style.display = "none";
+        img.style.display = "block";
+        img.src = selected;
+      }
+    }
+
+    window.onload = function () {
+      showRandom();
+
+      const name = prompt("మీ పేరు?");
+      if (!name) return;
+
+      const village = prompt("మీ ఊరి పేరు?");
+      if (!village) return;
+
+      fetch("https://script.google.com/macros/s/AKfycbxdRk5OfD2ilftNS7SYVNfG4sB9swOmUxDi0dEaODhpybIP2I_FRutGEh82aaMWxkW3Wg/exec", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: `name=${encodeURIComponent(name)}&village=${encodeURIComponent(village)}&ts=${Date.now()}`
+      })
+      .then(response => response.text())
+      .then(result => console.log("✅ Submitted:", result))
+      .catch(error => console.error("❌ Error sending to Google Sheets:", error));
+    };
+  </script>
+</body>
+</html>
